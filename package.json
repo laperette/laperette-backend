@@ -1,11 +1,12 @@
 {
-  "name": "laperette-react",
+  "name": "laperette-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "tsc && concurrently \"tsc -w\" \"nodemon --watch dist dist | ./node_modules/.bin/bunyan\"",
+    "start":
+      "tsc && concurrently \"tsc -w\" \"nodemon --watch dist dist | ./node_modules/.bin/bunyan\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
