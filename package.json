@@ -1,0 +1,33 @@
+{
+  "name": "laperette-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc && concurrently \"tsc -w\" \"nodemon --watch dist dist | ./node_modules/.bin/bunyan\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "bluebird": "^3.5.1",
+    "bunyan": "^1.8.12",
+    "chance": "^1.0.13",
+    "express": "^4.16.2",
+    "jsonwebtoken": "^8.1.1",
+    "pg": "^7.4.1",
+    "sequelize": "^4.34.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.1",
+    "@types/express": "^4.11.1",
+    "@types/jsonwebtoken": "^7.2.5",
+    "@types/node": "9.3.0",
+    "@types/sequelize": "^4.27.7",
+    "concurrently": "^3.5.1",
+    "nodemon": "^1.15.1"
+  }
+}
