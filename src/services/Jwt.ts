@@ -29,3 +29,7 @@ export const decodeAndVerifyToken = (bearerToken: string): Promise<any> => {
     return Promise.reject(err.message);
   }
 };
+
+export const decodeToken = (token): any => {
+  return decode(token);
+};

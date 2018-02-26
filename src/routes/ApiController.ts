@@ -4,8 +4,7 @@ import { SequelizeStorageManager } from '../storage';
 import { BaseController } from './BaseController';
 import { UsersController } from './users';
 import { BookingsController } from './bookings';
-import * as Jwt from 'jsonwebtoken';
-import { decodeAndVerifyToken } from '../services/Jwt';
+import { decodeAndVerifyToken, decodeToken } from '../services/Jwt';
 
 export class ApiController extends BaseController {
   constructor(logger: Logger, storageManager: SequelizeStorageManager) {
@@ -44,7 +43,7 @@ export class ApiController extends BaseController {
     if (!req.body.email) return res.status(400).send('no user');
     const token = await this.storageManager.authenticateUser(req.body);
     if (token) {
-      res.send({ token, user: Jwt.decode(token) });
+      res.send({ token, user: decodeToken(token) });
     } else {
       res.status(403).send('bad credentials');
     }
