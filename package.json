@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start":
-      "tsc && concurrently \"tsc -w\" \"nodemon --watch dist dist | ./node_modules/.bin/bunyan\"",
+    "start": "tsc && concurrently \"tsc -w\" \"nodemon --watch dist dist | ./node_modules/.bin/bunyan\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,6 +16,7 @@
     "bluebird": "^3.5.1",
     "bunyan": "^1.8.12",
     "chance": "^1.0.13",
+    "dotenv": "^5.0.1",
     "express": "^4.16.2",
     "jsonwebtoken": "^8.1.1",
     "pg": "^7.4.1",

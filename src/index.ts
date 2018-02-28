@@ -4,6 +4,8 @@ import { SequelizeStorageManager } from './storage';
 import { Logger, createLogger } from 'bunyan';
 import { ApiController } from './routes';
 import { addDays } from 'date-fns';
+import * as dotenv from 'dotenv';
+dotenv.load();
 
 function configureExpress(
   logger: Logger,
@@ -67,13 +69,14 @@ export function start(logger?: Logger) {
     createLogger({
       name: 'La-Perette',
       stream: process.stdout,
-      level: 'info'
+      level: 'debug'
     });
   const storageManager = new SequelizeStorageManager(
     {
-      database: 'b7sic7iicy1nm3p',
-      username: process.env.EXAMPLE_USERNAME || 'usmetg8uviowbn0wdh61',
-      password: 'B5STtSJfN1yZc35Yk6sS'
+      database: process.env.DB_NAME,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      host: process.env.DB_HOST
     },
     logger
   );
@@ -83,8 +86,9 @@ export function start(logger?: Logger) {
       await populateDatabase(logger, storageManager);
       const server = configureExpress(logger, storageManager);
       configureRoutes(server, logger, storageManager);
-      server.listen(3000, serv => {
-        logger.info(`Server listening on port 3000`);
+      const port = process.env.PORT || 8080;
+      server.listen(port, serv => {
+        logger.info(`Server listening on port ${port}`);
       });
     })
     .catch(err => {
@@ -92,4 +96,5 @@ export function start(logger?: Logger) {
     });
 }
 
+// Startup
 start();

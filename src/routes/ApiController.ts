@@ -28,14 +28,15 @@ export class ApiController extends BaseController {
       this.loggedIn,
       new BookingsController(this.logger, this.storageManager).routes
     );
+
     routes.use(
       '/users',
       this.loggedIn,
       new UsersController(this.logger, this.storageManager).routes
     );
 
-    routes.use('/login', this.login.bind(this));
-
+    routes.post('/login', this.login.bind(this));
+    routes.post('/register', this.register.bind(this));
     return routes;
   }
 
@@ -48,7 +49,9 @@ export class ApiController extends BaseController {
       res.status(403).send('bad credentials');
     }
   }
-
+  async register(req: Request, res: Response) {
+    res.send('ok');
+  }
   async authMiddleware(req: Request, res: Response, next: NextFunction) {
     const bearerToken = req.get('Authorization');
     try {

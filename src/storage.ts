@@ -13,6 +13,7 @@ import { areRangesOverlapping } from 'date-fns';
 
 // CONFIG
 export interface SequelizeStorageConfig {
+  host: string;
   database: string;
   username: string;
   password: string;
@@ -22,18 +23,19 @@ export class SequelizeStorageManager {
   public sequelize: Sequelize.Sequelize;
   public User: UserModel;
   public Booking: BookingModel;
-  private config: SequelizeStorageConfig;
+  private logger: Logger;
 
-  constructor(config: SequelizeStorageConfig, logger: Logger) {
-    this.config = config;
+  constructor(private config: SequelizeStorageConfig, logger: Logger) {
+    this.logger = logger.child({ component: 'SequelizeStorageManager' });
     this.sequelize = new Sequelize(
       this.config.database,
       this.config.username,
       this.config.password,
       {
-        host: 'b7sic7iicy1nm3p-postgresql.services.clever-cloud.com',
+        host: this.config.host,
         dialect: 'postgres',
         operatorsAliases: false,
+        logging: false, // logger.debug.bind(logger),
         pool: {
           max: 5,
           min: 0,
@@ -53,7 +55,10 @@ export class SequelizeStorageManager {
 
   async init(force?: boolean): Promise<any> {
     force = force || false;
-    return this.sequelize.sync({ force, logging: true });
+    return this.sequelize.sync({
+      force,
+      logging: false //logger.info(logger)
+    });
   }
 
   async register(
